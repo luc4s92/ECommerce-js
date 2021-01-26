@@ -21,7 +21,7 @@ body{
     height: 100vh;
     font: 1.6rem Helvetica;
     margin: 0;
-    background-color: rgba(14, 75, 239, 0.4);
+    background-color: rgba(136, 166, 248, 0.8);
 }
 
 .grid-container{
@@ -108,4 +108,15 @@ footer{
 
 .product-price{
     font-size: 2rem;
+}
+
+/* Rating */
+
+.rating{
+    color: #ffc000;
+    font-size: 1.8rem;
+}
+
+.rating span:last-child{
+    color: #444;
 }
