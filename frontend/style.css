@@ -38,6 +38,14 @@ button.primary{
     width: 100%;
 }
 
+.success{
+    color: #40c040;
+}
+
+.error{
+    color: #c04040;
+}
+
 body{
     height: 100vh;
     font: 1.6rem Helvetica;
