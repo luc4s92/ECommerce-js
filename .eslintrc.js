@@ -16,5 +16,6 @@ module.exports = {
     'no-nested-ternary': 0,
     'import/prefer-default-export': 0,
     'no-use-before-define': 0,
+    'arrow-body-style': 0,
   },
 };
