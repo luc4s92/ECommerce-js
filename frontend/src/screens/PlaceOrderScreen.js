@@ -1,5 +1,7 @@
-import {getCartItems, getPayment, getShipping} from '../localStorage';
+import {cleanCart, getCartItems, getPayment, getShipping} from '../localStorage';
 import CheckoutSteps from '../components/CheckoutSteps';
+import {showLoading, hideLoading, showMessage} from '../utils';
+import { createOrder } from '../api';
 
 const ConvertCartToOrder = () =>{
     const orderItems = getCartItems();
@@ -30,7 +32,21 @@ const ConvertCartToOrder = () =>{
 }
 
 const PlaceOrderScreen = {
-    after_render: () => {},
+    after_render: async() => {
+        document.getElementById("placeorder-button")
+        .addEventListener('click', async() =>{
+        const order = ConvertCartToOrder();
+        showLoading();
+        const data = await createOrder(order);
+        hideLoading();
+        if(data.error){
+            showMessage(data.error);
+        }else{
+            cleanCart();
+            document.location.hash = `/order/${  data.order._id}`;
+        }
+        });
+    },
     render: () =>  {
     const {
         orderItems,
@@ -109,7 +125,7 @@ const PlaceOrderScreen = {
                             <div>$${totalPrice}</div>
                         </li>
                         <li>
-                            <button class="primary fw">Place Order</button>
+                            <button id="placeorder-button" class="primary fw">Place Order</button>
                         </li>
                     </ul>
                 </div>
@@ -118,5 +134,4 @@ const PlaceOrderScreen = {
     `;
     },
 };
-
 export default PlaceOrderScreen;

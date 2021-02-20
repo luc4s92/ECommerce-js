@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 import data from './data';
 import config from './config';
 import userRouter from './routers/userRouter';
+import orderRouter from './routers/orderRouter';
 
 mongoose.connect(config.MONGODB_URL, {
   useNewUrlParser: true,
@@ -19,7 +20,8 @@ mongoose.connect(config.MONGODB_URL, {
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
-app.use('/api/users', userRouter)
+app.use('/api/users', userRouter);
+app.use('/api/orders', orderRouter);
 app.get('/api/products', (req, res) => {
   res.send(data.products);
 });
@@ -31,6 +33,7 @@ app.get('/api/products/:id', (req, res) => {
     res.status(404).send({ message: 'Product Not Found!' });
   }
 });
+// eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) =>{
     const status = err.name && err.name === 'ValidationError'? 400: 500;
     res.status(status).send({message: err.message});

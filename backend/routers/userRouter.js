@@ -1,6 +1,6 @@
 import express from 'express';
 import expressAsyncHandler from 'express-async-handler';
-import User from '../models/userModels';
+import User from '../models/userModel';
 import { generateToken, isAuth } from '../utils';
 
 const userRouter = express.Router();
