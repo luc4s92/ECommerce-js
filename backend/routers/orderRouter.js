@@ -29,4 +29,22 @@ orderRouter.post('/', isAuth, expressAsyncHandler( async(req,res) =>{
 })
 );
 
+orderRouter.put('/:id/pay', isAuth, expressAsyncHandler(async(req,res)=>{
+    const order = await Order.findById(req.params.id);
+    if(order){
+        order.isPaid = true;
+        order.paidAt = Date.now();
+        order.payment.paymentResult ={
+            payID: req.body.payerID,
+            paymentID: req.body.paymentID,
+            orderID: req.body.orderID,
+        };
+        const updateOrder = await order.save();
+        res.send({message:'Order Paid', order: updateOrder});
+    }else{
+        res.status(404).send({message: 'Order Not Found'});
+    }
+})
+);
+
 export default orderRouter;
